@@ -12,6 +12,11 @@ const NavStyles = StyleSheet.create({
   },
   navbox: {
     display: "flex",
+    position: "absolute",
+    top: 0,
+    left: 0,
+    bottom: 0,
+    width: "20%",
     backgroundColor: '#6CAE75',
     borderTopRightRadius: 10,
     borderBottomRightRadius: 10,

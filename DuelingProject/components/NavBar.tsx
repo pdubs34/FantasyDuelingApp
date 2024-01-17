@@ -12,32 +12,36 @@ import NavStyles from "../styles/navstyles.js";
 
 const NavBar: React.FC = () => {
   const [isNavboxOpen, setNavboxOpen] = useState(false);
-  const slideAnim = useRef(new Animated.Value(isNavboxOpen ? 30 : 1.0)).current;
+  const slideAnim = useRef(new Animated.Value(isNavboxOpen ? windowWidth * 0.75 : windowWidth * 0.1)).current;
   const textOpacity = useRef(new Animated.Value(isNavboxOpen ? 0 : 1)).current;
 
   useEffect(() => {
     Animated.parallel([
       Animated.timing(slideAnim, {
-        toValue: isNavboxOpen ? 1 : 30,
-        duration: 800,
+        toValue: isNavboxOpen ? windowWidth * 0.1 : windowWidth * 0.75,
+        duration: isNavboxOpen ? 1000 : 1000, // Decrease duration for showing up
         easing: Easing.ease,
         useNativeDriver: false,
       }),
       Animated.timing(textOpacity, {
         toValue: isNavboxOpen ? 0 : 1,
-        duration: 800,
+        duration: isNavboxOpen ? 300 : 300, // Decrease duration for showing up
+        delay: isNavboxOpen ? 0 : 700, // Increase delay for showing up
         useNativeDriver: false,
         easing: Easing.ease,
       }),
     ]).start();
   }, [isNavboxOpen]);
 
+
+
   const onSlideBarPress = () => {
     setNavboxOpen(!isNavboxOpen);
   };
 
   return (
-      <Animated.View style={[NavStyles.navbox,{ flex: slideAnim, zIndex: 1 }]}>
+    <View style= {{position: "absolute", left: 0, right: 0, top: 0, bottom: 0}}>
+      <Animated.View style={[NavStyles.navbox,{ width: slideAnim, zIndex: 1 }]}>
               <TouchableOpacity style = {NavStyles.topNavigationItem} onPress={() => onSlideBarPress()}>
               <FontAwesomeIcons name="home" size={windowWidth * 0.08} color="#000" />
                                 <Animated.View style={{ opacity: textOpacity }}>
@@ -89,15 +93,17 @@ const NavBar: React.FC = () => {
 
               </TouchableOpacity>
               <View style= {{flex: 6.375}}>
-                                              <Animated.View style={{ opacity: textOpacity }}>
-                                                      <Image
-                                                                                   source={require('../siteart/fencing2.png')}
-                                                                                   style={{ width: windowWidth * 0.55, resizeMode: 'contain' }}/>
-                                              </Animated.View>
 
               </View>
 
             </Animated.View>
+            {/*{!isNavboxOpen && (
+                        <View style = {{flex: 1, backgroundColor: "white"}}>
+                           </View>
+            )}
+            */}
+
+      </View>
   );
 };
 

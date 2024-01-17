@@ -10,15 +10,13 @@ import NavStyles from '../styles/navstyles.js';
 import NavBar from '../components/NavBar.tsx';
 
 const HomeScreen = ({ navigation, route }) => {
-  const [isNavboxOpen, setNavboxOpen] = useState(false);
-  const slideAnim = useRef(new Animated.Value(-windowWidth * 0.65)).current;
 
   return (
-    <View style={NavStyles.container}>
-        <NavBar/>
-        <View style = {NavStyles.content}>
-
+    <View style = {{position: "absolute", top: 0, left: 0, right: 0, bottom: 0, backgroundColor: "grey", justifyContent: "center"}}>
+        <View style = {{zIndex: 0}}>
+        <Text>Hellllllllllllllloasdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdf</Text>
         </View>
+       <NavBar/>
     </View>
   );
 };
